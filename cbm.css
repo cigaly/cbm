@@ -149,3 +149,47 @@ div.cat {
     width: 100%;
     float: left;
 }
+
+.small_article { }
+
+.small_article .category { }
+
+.small_article .title { }
+
+.small_article .text { }
+
+.small_article .date { }
+
+.small_article .more { }
+
+
+.big_article { }
+
+.big_article .category { }
+
+.big_article .title { }
+
+.big_article .text { }
+
+.big_article .date { }
+
+.big_article .more { }
+
+
+.latest {}
+
+.latest_article {}
+
+.latest_article .date {}
+
+.latest_article .category {}
+
+.latest_article .title {}
+
+.latest_article .text {}
+
+.latest_article .more {}
+
+.bulletin {}
+
+.footer {}
