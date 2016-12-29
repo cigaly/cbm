@@ -21,11 +21,3 @@
 
 </div>
 <!-- /Main -->
-<!--<?php wp_list_categories('title_li=&depth=1'); ?>
-<?php
-$categories = get_categories( );
-foreach( $categories as $category ) {
-	print_r($category);
-}
-?>
-<?= CBMTheme::categoriesNavigation() ?>-->
