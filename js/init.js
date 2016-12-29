@@ -5,7 +5,7 @@
 */
 
 skel.init({
-	prefix: 'css/style',
+	prefix: _cbm_tpl_dir + 'css/style',
 	resetCSS: true,
 	boxModel: 'border',
 	grid: {

@@ -1,68 +1,3 @@
-<!DOCTYPE HTML>
-<!--
-	Ex Machina by TEMPLATED
-    templated.co @templatedco
-    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
-<html>
-	<head>
-		<title>CROATIAN BUSINESS MONITOR Daily News</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="CROATIAN BUSINESS MONITOR Daily News" />
-		<meta name="keywords" content="CROATIAN BUSINESS MONITOR, News, croatia, business, finance" />
-		<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-        <link href="http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600&subset=latin-ext,latin" rel="stylesheet"  type='text/css'>
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-panels.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel-noscript.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-desktop.css" />
-		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
-	</head>
-	<body class="homepage">
-
-	<!-- Header -->
-		<div id="header">
-			<div class="container">
-					
-				<!-- Logo -->
-					<div id="logo">
-						<h1><a href="index.php"><img src="images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
-					</div>
-                    <div id="date">
-                    	Thursday, 29th  December 2016                     </div>
-             </div>
-             <div class="container">
-				
-				<!-- Nav -->
-					<nav id="nav">
-						<ul>
-							<li class="active"><a href="index.php">Home</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Contact</a></li>
-							<li><a href="#">Membership</a></li>
-                            <li><a href="#">Useful links</a></li>
-                            <li style="float: right;"><a href="#">Login</a></li>
-                            
-                            
-						</ul>
-                        
-						
-                        
-					</nav>
-
-			</div>
-		</div>
-	<!-- Header -->
-		
-	
-
 	<!-- Main -->
 		<div id="page">
 
@@ -181,7 +116,7 @@
 					<div class="6u">
 						<section>
 							<header>
-                            	<img src="images/clanci/dummy.jpg" alt="image">
+                            	<img src="<?php bloginfo('template_directory');?>/images/clanci/dummy.jpg" alt="image">
                                 <span class="banking">Banking</span>
 								<h2>The quick brown fox</h2>
 							</header>
@@ -191,7 +126,7 @@
 						</section>
                         <section>
 							<header>
-                            	<!-- <img src="images/clanci/dummy.jpg" alt="image">-->
+                            	<!-- <img src="<?php bloginfo('template_directory');?>/images/clanci/dummy.jpg" alt="image">-->
                                 <span class="industry">Industry</span>
 								<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
 							</header>
@@ -201,7 +136,7 @@
 						</section>
                         <section>
 							<header>
-                            	<img src="images/clanci/dummy2.jpg" alt="image">
+                            	<img src="<?php bloginfo('template_directory');?>/images/clanci/dummy2.jpg" alt="image">
                                 <span class="insurance">Insurance</span>
 								<h2>Jumps over the lazy nasty dog</h2>
 							</header>
@@ -260,50 +195,3 @@
 
 		</div>
 	<!-- /Main -->
-
-	
-
-	<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<div class="row">
-				  	<div class="3u">
-					  <section>
-						<p>Partners: <strong>
-                        <a href="#" target="_blank">HOK</a> 
-                        <a href="#" target="_blank">HGK</a> 
-                        <a href="#" target="_blank">PIK</a> 
-                        <a href="#" target="_blank">PAK</a> 
-                        <a href="#" target="_blank">POK</a> 
-                        </strong></p>
-					  </section>
-					</div>
-                    <div class="4u">
-					  <section>
-						<p>Published by: Center for Development Cooperation</p>
-					  </section>
-					</div>
-                    <div class="3u">
-					  <section>
-						<p>Powered by: CI Solutions</p>
-					  </section>
-					</div>
-                    <div class="2u">
-					  <section>
-						<p>Designed by: <a href="http://reber.hr" target="_blank">REBER</a></p>
-					  </section>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	<!-- /Footer -->
-
-	<!-- Copyright
-		<div id="copyright" class="container">
-			Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
-		</div>
- -->
-
-	</body>
-</html>
