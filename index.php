@@ -17,3 +17,23 @@ spl_autoload_register(function ($class_name) {
 
 	<?php get_footer(); ?>
 </html>
+<!--
+	<?php
+		// $x = array_merge(
+		// 	CBMTheme::getTaggedPosts( 'boom1' ),
+		// 	CBMTheme::getTaggedPosts( 'boom2' ),
+		// 	CBMTheme::getTaggedPosts( 'boom3' )
+		// );
+		// // print_r($x);
+		// foreach ($x as $p)
+		// {
+		// 	echo $p->ID;
+		// 	if (has_post_thumbnail( $p )) {
+		// 		echo ' ' . get_the_post_thumbnail( $p );
+		// 	} else {
+		// 		echo ' No thumb';
+		// 	}
+		// 	echo "\n";
+		// }
+	?>
+-->

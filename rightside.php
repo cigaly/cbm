@@ -2,13 +2,12 @@
 	<header>
 		<h2><span class="padbott10">LATEST NEWS</span></h2>
 	</header>
-	<ul class="style1">
+	<!--<ul class="style1">
 		<strong><span class="articledate">12.02.2016 18:30</span>
 		</strong>
 		<h3 class="colorbanking">The quick brown fox</h3>
 		<p class="colorbanking">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
 		<p><span class="articledate">12.02.2016</span> <a href="#" class="button">Read More </a></p>
-		<!-- <li><a href="#">Maecenas luctus lectus at sapien</a></li> -->
 	</ul>
 
 	<ul class="style1">
@@ -17,8 +16,13 @@
 		<h3 class="colorbusinessdevelopment">The quick brown fox</h3>
 		<p class="colorbusinessdevelopment">Lorem ipsum dolor sit amet, consectetur adipiscing</p>
 		<p><span class="articledate">12.02.2016</span> <a href="#" class="button">Read More </a></p>
-		<!-- <li><a href="#">Maecenas luctus lectus at sapien</a></li> -->
-	</ul>
+	</ul>-->
+	<?php
+		foreach (CBMTheme::getLatestPosts() as $post)
+		{
+			echo CBMTheme::displayLatestPost( $post );
+		}
+	?>
 </section>
 <section class="sidebar buletin">
 	<header>
