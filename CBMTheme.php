@@ -180,5 +180,24 @@ class CBMTheme {
         return $html;
     }
 
+    public static function displayCategoryMiddlePost( $post )
+    {
+        $html = '<section><header>';
+        if (has_post_thumbnail( $post )) {
+            $html .= get_the_post_thumbnail( $post );
+        }
+        $cat = get_the_category( $post->ID )[0];
+        $slug = $cat->slug;
+        $content = self::getTheContent( $post, '[...]', true );
+        $html .=
+		        '<h2><span class="color' . $slug . '">' . $post->post_title . '</span></h2>' .
+            '</header>' .
+            '<p>' . $content . '</p>' .
+            '<p><span class="articledate">12.02.2016</span> <a href="banking-single.php" class="button">Read More </a></p>' .
+            '<hr>' .
+            '</section>';
+        return $html;
+    }
+
 }
 ?>

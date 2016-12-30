@@ -3,22 +3,35 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="description" content="CROATIAN BUSINESS MONITOR Daily News" />
 	<meta name="keywords" content="CROATIAN BUSINESS MONITOR, News, croatia, business, finance" />
-	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-	<link href="http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600&subset=latin-ext,latin" rel="stylesheet"  type='text/css'>
-	<!--[if lte IE 8]><script src="<?php bloginfo('template_directory');?>/js/html5shiv.js"></script><![endif]-->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script>var _cbm_tpl_dir = '<?php bloginfo('template_directory');?>/';</script>
-	<script src="<?php bloginfo('template_directory');?>/js/skel.min.js"></script>
-	<script src="<?php bloginfo('template_directory');?>/js/skel-panels.min.js"></script>
-	<script src="<?php bloginfo('template_directory');?>/js/init.js"></script>
-	<noscript>
-		<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/css/skel-noscript.css" />
-		<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/style.css" />
-		<link rel="stylesheet" href="<?php bloginfo('template_directory');?>/css/style-desktop.css" />
-	</noscript>
-	<!--[if lte IE 8]><link rel="stylesheet" href="<?php bloginfo('template_directory');?>/css/ie/v8.css" /><![endif]-->
-	<!--[if lte IE 9]><link rel="stylesheet" href="<?php bloginfo('template_directory');?>/css/ie/v9.css" /><![endif]-->
+	<script>var _cbm_tpl_dir = '<?= get_template_directory_uri() ?>/';</script>
+	<?php
+		// wp_enqueue_style( 'fonts', get_template_directory_uri() . '/css/fonts.css', array(), '1.1', 'all');
+		wp_enqueue_style( 'fonts', get_template_directory_uri() . '/css/fonts.css');
+
+		wp_enqueue_script( 'html5shiv', get_template_directory_uri() . '/js/html5shiv.js');
+		wp_script_add_data( 'html5shiv', 'conditional', 'lte IE 8' );
+
+		wp_enqueue_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js');
+
+		wp_enqueue_script( 'skel', get_template_directory_uri() . '/js/skel.min.js');
+		wp_enqueue_script( 'skel-panels', get_template_directory_uri() . '/js/skel-panels.min.js');
+
+		wp_enqueue_script( 'init', get_template_directory_uri() . '/js/init.js');
+
+		wp_enqueue_style( 'v8', get_template_directory_uri() . '/css/ie/v8.css');
+		wp_style_add_data( 'v8', 'conditional', 'lte IE 8' );
+
+		wp_enqueue_style( 'v9', get_template_directory_uri() . '/css/ie/v9.css');
+		wp_style_add_data( 'v9', 'conditional', 'lte IE 9' );
+	?>
+	<?php
+	?>
 	<?php wp_head();?>
+	<noscript>
+		<link rel="stylesheet" href="<?= get_template_directory_uri() ?>/css/skel-noscript.css" />
+		<link rel="stylesheet" href="<?= get_template_directory_uri() ?>/style.css" />
+		<link rel="stylesheet" href="<?= get_template_directory_uri() ?>/css/style-desktop.css" />
+	</noscript>
 </head>
 <body class="homepage">
 
@@ -28,10 +41,9 @@
 				
 			<!-- Logo -->
 				<div id="logo">
-					<h1><a href="index.php"><img src="<?php bloginfo('template_directory');?>/images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
+					<h1><a href="index.php"><img src="<?= get_template_directory_uri() ?>/images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
 				</div>
-				<div id="date">
-					Thursday, 29th  December 2016                     </div>
+				<div id="date"><?php echo CBMTheme::formatDate( time() ); ?></div>
 			</div>
 			<div class="container">
 			

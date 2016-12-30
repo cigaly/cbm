@@ -15,7 +15,7 @@ spl_autoload_register(function ($class_name) {
 <html>
 	<?php get_header(); ?>
 
-	<?php get_template_part( 'content', get_post_format() ); ?>
+	<?php get_template_part( 'single_content', get_post_format() ); ?>
 
 	<?php get_footer(); ?>
 </html>
