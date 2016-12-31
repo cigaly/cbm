@@ -15,7 +15,19 @@ spl_autoload_register(function ($class_name) {
 <html>
 	<?php get_header(); ?>
 
-	<?php get_template_part( 'content', get_post_format() ); ?>
+	<!-- Main -->
+	<div id="page">
+		<?php get_template_part( 'navigation', get_post_format() ); ?>
+
+		<!-- Main -->
+		<div id="main" class="container">
+			<div class="row">
+				<?php get_template_part( 'content', get_post_format() ); ?>
+			</div>
+		</div>
+		<!-- Main -->
+	</div>
+	<!-- /Main -->
 
 	<?php get_footer(); ?>
 </html>

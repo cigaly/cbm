@@ -43,19 +43,19 @@
 				<div id="logo">
 					<h1><a href="index.php"><img src="<?= get_template_directory_uri() ?>/images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
 				</div>
-				<div id="date"><?php echo CBMTheme::formatDate( time() ); ?></div>
+				<div id="date"><?= CBMTheme::formatDate( time() ) ?></div>
 			</div>
 			<div class="container">
 			
 			<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="active"><a href="index.php">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Membership</a></li>
-						<li><a href="#">Useful links</a></li>
-						<li style="float: right;"><a href="#">Login</a></li>
+						<li class="active"><a href="<?= home_url() ?>">Home</a></li>
+						<li><a href="<?= home_url( 'about.php' ) ?>">About</a></li>
+						<li><a href="<?= home_url( 'contact.php' ) ?>">Contact</a></li>
+						<li><a href="<?= home_url( 'membership.php' ) ?>">Membership</a></li>
+						<li><a href="<?= home_url( 'links.php' ) ?>">Useful links</a></li>
+						<li style="float: right;"><a href="<?= home_url( 'login.php' ) ?>">Login</a></li>
 						
 						
 					</ul>

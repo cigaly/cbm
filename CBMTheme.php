@@ -12,52 +12,43 @@ class CBMTheme {
     }
 
     public static function displayCategory($cat)
-    {
-        return
-        '<div class="3u">' .
-			'<section>' .
-				// '<header' .' class="active"' . '>' .
-				'<header>' .
-					'<h2 id="' . $cat->slug . '" class="' . $cat->slug . '"><a href="' . get_category_link( $cat->cat_ID ) . '">' . $cat->name . '</a></h2>' .
-				'</header>' .
-			'</section>' .
-		'</div>';
-    }
+    { ?>
+        <div class="3u">
+            <section>
+                <header>
+                    <h2 id="<?= $cat->slug ?>" class="<?= $cat->slug ?>"><a href="<?= get_category_link( $cat->cat_ID ) ?>"><?= $cat->name ?></a></h2>
+                </header>
+            </section>
+        </div>
+    <?php }
 
     public static function categoriesNavigation()
     {
-        $html = '';
         $categories = get_categories( );
         foreach( $categories as $category ) {
             if ($category->slug != 'uncategorized') {
-                $html .= self::displayCategory($category);
+                self::displayCategory($category);
             }
         }
-        return $html;
     }
 
-    private static function compareByDate($a, $b)
-    {
-        return strcmp( $b["date"], $a["date"] );
-    }
+    // private static function compareByDate($a, $b)
+    // {
+    //     return strcmp( $b["date"], $a["date"] );
+    // }
 
-
-    public static function getLastPosts($value='')
+    public static function getLastPostIDs()
     {
-        $last_posts = array();
-        $categories = get_categories(); 
         global $post;
         $p = array();
 
-        foreach ( $categories as $category ) {
+        foreach ( get_categories() as $category ) {
             if ($category->slug == 'uncategorized') {
                 continue;
             }
-            // TODO : Ignore already loaded posts!
             $args = array(
                 'cat' => $category->term_id,
                 'post_type' => 'post',
-                'post__not_in' => $p,
                 'posts_per_page' => '1',
             );
 
@@ -66,22 +57,40 @@ class CBMTheme {
             if ( $query->have_posts() ) {
                 while ( $query->have_posts() ) {
                     $query->the_post();
-                    array_push($last_posts, array(
-                        "category" => $category->name,
-                        "slug" => $category->slug,
-                        "post_id" => $post->ID,
-                        "date" => $post->post_date,
-                        "post" => $post
-                    ));
-                    array_push( $p, $post->ID );
+                    $p[] = $post->ID;
                 } // end while
             } // end if
-
             // Use reset to restore original query.
-            wp_reset_postdata();
+            $query->reset_postdata();
         }
-        usort($last_posts, "CBMTheme::compareByDate");
-        return $last_posts;
+        return $p;
+    }
+
+    public static function dispalyLastPosts()
+    {
+        $ids = self::getLastPostIDs();
+        $query = new WP_Query( array( 'post__in' => $ids ) );
+
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                self::displayLastPost();
+            } // end while
+        } // end if
+        $query->reset_postdata();
+    }
+
+    static private function displayLastPost( ) {
+        global $post;
+        ?>
+            <ul class="style2">
+                <p class="<?= $item['slug'] ?>"><?= the_category() ?></p>
+                <h3><?= the_title() ?></h3>
+                <p><?= the_excerpt() ?></p>
+                <p><span class="articledate"><?= the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
+            </ul>
+            <?php
+        // wp_reset_postdata();
     }
 
     private static function getTheExcerpt( $post )
@@ -100,54 +109,68 @@ class CBMTheme {
         return $text;
     }
 
-    static public function sidebarPost( $item ) {
-        $post = $item['post'];
-        return
-            '<ul class="style2">' .
-                '<p class="' . $item['slug'] . '">' . $item['category'] . '</p>' .
-                '<h3>' . $post->post_title . '</h3>' .
-                '<p>' . self::getTheExcerpt( $post ) . '</p>' .
-                '<p><span class="articledate">' . self::formatDate( $item['date'], 'd.m.Y' ) . '</span> <a href="' . get_permalink( $post ) . '" class="button">Read More </a></p>' .
-            '</ul>';
-    }
-
     public static function getLatestPosts( $n = 2 ) 
     {
         $args = array(
             'numberposts' => $n,
-            'offset' => 0,
-            'category' => 0,
+            // 'offset' => 0,
+            // 'category' => 0,
             'orderby' => 'post_date',
             'order' => 'DESC',
-            'include' => '',
-            'exclude' => '',
-            'meta_key' => '',
-            'meta_value' =>'',
+            // 'include' => '',
+            // 'exclude' => '',
+            // 'meta_key' => '',
+            // 'meta_value' =>'',
             'post_type' => 'post',
             'post_status' => 'publish',
             'suppress_filters' => true
         );
-        $recent_posts = wp_get_recent_posts( $args, OBJECT );
-        return $recent_posts;
+        // return wp_get_recent_posts( $args, OBJECT );
+        return get_posts( $args );
     }
 
-    public static function displayLatestPost( $post )
+    private static function queryLatestPosts( $n = 2 ) 
     {
-        $slug = get_the_category( $post->ID )[0]->slug;
-        return
-            '<ul class="style1">' .
-                '<strong><span class="articledate">' . self::formatDate( $post->post_modified, 'd.m.Y H:i' ) . '</span>' .
-                '</strong>' .
-                '<h3 class="color' . $slug . '">' . $post->post_title . '</h3>' .
-                '<p class="color' . $slug . '">' . self::getTheExcerpt( $post ) . '</p>' .
-                '<p><span class="articledate">' . self::formatDate( $post->post_modified, 'd.m.Y' ) . '</span> <a href="' . get_permalink( $post ) . '" class="button">Read More </a></p>' .
-            '</ul>';
+        return new WP_Query( array(
+            'posts_per_page' => $n,
+            'orderby' => 'post_date',
+            'order' => 'DESC',
+            'post_type' => 'post',
+            'post_status' => 'publish',
+            'suppress_filters' => true
+        ) );
     }
 
-    public static function getTaggedPosts( $tags )
+    public static function displayLatestPost()
+    {
+        global $post;
+        $slug = get_the_category( $post->ID )[0]->slug;
+        ?>
+            <ul class="style1">
+                <strong><span class="articledate"><?= the_time(  'd.m.Y H:i' ) ?></span></strong>
+                <h3 class="color<?= $slug ?>"><?= the_title() ?></h3>
+                <p class="color<?= $slug ?>"><?= the_excerpt() ?></p>
+                <p><span class="articledate"><?= the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
+            </ul>
+    <?php
+    }
+
+    public static function displayLatestPosts()
+    {
+        $q = self::queryLatestPosts();
+        if ( $q->have_posts() ) {
+            while ( $q->have_posts() ) {
+                $q->the_post();
+                self::displayLatestPost();
+            } // end while
+        } // end if
+        $q->reset_postdata();
+    }
+
+    public static function getTaggedPosts( $tags, $n = 1 )
     {
         $args = array(
-            'numberposts' => 1,
+            'numberposts' => $n,
             'orderby' => 'date',
             'order' => 'DESC',
             'tax_query' => array( 
@@ -161,23 +184,45 @@ class CBMTheme {
         return get_posts( $args );
     }
 
-    public static function displayMiddlePost( $post )
+    public static function queryTaggedPosts( $tags, $n = 1 )
     {
-        $html = '<section><header>';
-        if (has_post_thumbnail( $post )) {
-            $html .= get_the_post_thumbnail( $post );
-        }
+        return new WP_Query( array(
+            'numberposts' => $n,
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'tax_query' => array( 
+                array( 
+                    'taxonomy' => 'post_tag',
+                    'field'     => 'slug',
+                    'terms' => $tags
+                )
+            )
+        ) );
+    }
+
+    public static function displayMiddlePost( )
+    {
+        global $post;
+        // setup_postdata( $post );
         $cat = get_the_category( $post->ID )[0];
         $slug = $cat->slug;
-        $content = self::getTheContent( $post, '[...]', true );
-        $html .=
-                    '<span class="' . $slug . '">' . $cat->name . '</span>' .
-                    '<h2>' . $post->post_title . '</h2>' .
-                '</header>' .
-                '<p>' . $content . '</p>' .
-                '<p><span class="articledate">12.02.2016</span> <a href="#" class="button">Read More </a></p>' .
-            '</section>';
-        return $html;
+    ?>
+    <section>
+      <header>
+        <?php 
+            if (has_post_thumbnail( $post )) {
+                echo get_the_post_thumbnail( $post );
+            }
+        ?>
+        <span class="<?= $slug ?>"><?= the_category() ?></span>
+        <h2><?= the_title() ?></h2>
+      </header>
+      <p><?= the_content( '[...]', true ) ?></p>
+      <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
+    </section>
+    <?php
+
+        // wp_reset_postdata();
     }
 
     public static function displayCategoryMiddlePost( $post )
@@ -193,10 +238,38 @@ class CBMTheme {
 		        '<h2><span class="color' . $slug . '">' . $post->post_title . '</span></h2>' .
             '</header>' .
             '<p>' . $content . '</p>' .
-            '<p><span class="articledate">12.02.2016</span> <a href="banking-single.php" class="button">Read More </a></p>' .
+            '<p><span class="articledate">' . the_time( 'd.m.Y' ) . '</span> <a href="' . get_permalink( $post ) . '" class="button">Read More </a></p>' .
             '<hr>' .
             '</section>';
         return $html;
+    }
+
+    public static function displaySinglePosts()
+    {
+        global $post;
+        if (have_posts()) {
+            while (have_posts()) {
+                the_post();
+                $cat = get_the_category( $post->ID )[0];
+                $slug = $cat->slug;
+                ?>
+                <section>
+                    <header>
+                        <?php 
+                            if (has_post_thumbnail( $post )) {
+                                echo get_the_post_thumbnail( $post );
+                            }
+                        ?>
+                        <h2><?= the_title() ?></h2>
+                    </header>
+                    <h3 class="color<?= $slug ?>"><?= the_excerpt() ?></h3>
+                    <p><strong>Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum. </strong> </p>
+                    <p><?= the_content() ?></p>
+                    <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_category_link( $cat->cat_ID ) ?>" class="button color<?= $slug ?>">More in <?= $cat->name ?></a></p>
+                </section>
+            <?php
+            }
+        }
     }
 
 }
