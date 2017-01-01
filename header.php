@@ -1,3 +1,13 @@
+<?php
+spl_autoload_register(function ($class_name) {
+    include $class_name . '.php';
+});
+?>
+
+<!DOCTYPE HTML>
+<?php
+?>
+<html>
 <head>
 	<title>CROATIAN BUSINESS MONITOR Daily News</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -40,30 +50,31 @@
 		<div class="container">
 				
 			<!-- Logo -->
-				<div id="logo">
-					<h1><a href="index.php"><img src="<?= get_template_directory_uri() ?>/images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
-				</div>
-				<div id="date"><?= CBMTheme::formatDate( time() ) ?></div>
+			<div id="logo">
+				<h1><a href="index.php"><img src="<?= get_template_directory_uri() ?>/images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
 			</div>
-			<div class="container">
-			
-			<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li class="active"><a href="<?= home_url() ?>">Home</a></li>
-						<li><a href="<?= home_url( 'about.php' ) ?>">About</a></li>
-						<li><a href="<?= home_url( 'contact.php' ) ?>">Contact</a></li>
-						<li><a href="<?= home_url( 'membership.php' ) ?>">Membership</a></li>
-						<li><a href="<?= home_url( 'links.php' ) ?>">Useful links</a></li>
-						<li style="float: right;"><a href="<?= home_url( 'login.php' ) ?>">Login</a></li>
-						
-						
-					</ul>
-					
-					
-					
-				</nav>
 
+			<div id="date"><?= CBMTheme::formatDate( time() ) ?></div>
+		</div>
+
+		<div class="container">
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li class="active"><a href="<?= home_url() ?>">Home</a></li>
+					<li><a href="<?= home_url( 'about.php' ) ?>">About</a></li>
+					<li><a href="<?= home_url( 'contact.php' ) ?>">Contact</a></li>
+					<li><a href="<?= home_url( 'membership.php' ) ?>">Membership</a></li>
+					<li><a href="<?= home_url( 'links.php' ) ?>">Useful links</a></li>
+					<li style="float: right;">
+						<?php if (is_user_logged_in()) { ?>
+							<a href="<?= wp_logout_url( home_url() ) ?>">Logout</a>
+						<?php } else { ?>
+							<a href="<?= wp_login_url( home_url() ) ?>">Login</a>
+						<?php } ?>
+					</li>
+				</ul>
+			</nav>
 		</div>
 	</div>
 <!-- Header -->

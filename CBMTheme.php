@@ -184,6 +184,28 @@ class CBMTheme {
         return get_posts( $args );
     }
 
+    private static function queryFeaturedPosts( $n = 3 )
+    {
+        return new WP_Query( array(
+            'numberposts' => $n,
+            'orderby' => 'meta_value',
+            'order' => 'ASC',
+            'meta_key' => 'feature'
+        ) );
+    }
+
+    public static function displayFeaturedPosts( $n = 3 )
+    {
+        $query = self::queryFeaturedPosts();
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                CBMTheme::displayMiddlePost(  );
+            } // end while
+        } // end if
+        $query->reset_postdata();
+    }
+
     public static function queryTaggedPosts( $tags, $n = 1 )
     {
         return new WP_Query( array(
@@ -244,30 +266,37 @@ class CBMTheme {
         return $html;
     }
 
+    public static function displaySinglePost( $post )
+    {
+        $cat = get_the_category( $post->ID )[0];
+        $slug = $cat->slug;
+        ?>
+        <section>
+            <header>
+                <?php 
+                    if (has_post_thumbnail( $post )) {
+                        echo get_the_post_thumbnail( $post );
+                    }
+                ?>
+                <h2><?= the_title() ?></h2>
+            </header>
+            <?php if (has_excerpt()) { ?>
+                <h3 class="color<?= $slug ?>"><?= the_excerpt() ?></h3>
+            <?php } ?>
+            <p><strong>Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum. </strong> </p>
+            <p><?= the_content() ?></p>
+            <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_category_link( $cat->cat_ID ) ?>" class="button color<?= $slug ?>">More in <?= $cat->name ?></a></p>
+        </section>
+        <?php
+    }
+
     public static function displaySinglePosts()
     {
         global $post;
         if (have_posts()) {
             while (have_posts()) {
                 the_post();
-                $cat = get_the_category( $post->ID )[0];
-                $slug = $cat->slug;
-                ?>
-                <section>
-                    <header>
-                        <?php 
-                            if (has_post_thumbnail( $post )) {
-                                echo get_the_post_thumbnail( $post );
-                            }
-                        ?>
-                        <h2><?= the_title() ?></h2>
-                    </header>
-                    <h3 class="color<?= $slug ?>"><?= the_excerpt() ?></h3>
-                    <p><strong>Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum. </strong> </p>
-                    <p><?= the_content() ?></p>
-                    <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_category_link( $cat->cat_ID ) ?>" class="button color<?= $slug ?>">More in <?= $cat->name ?></a></p>
-                </section>
-            <?php
+                displaySinglePosts( $post) ;
             }
         }
     }
