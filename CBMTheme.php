@@ -11,12 +11,14 @@ class CBMTheme {
         return date_i18n( $dateFormat, $timestamp);
     }
 
-    public static function displayCategory($cat)
+    public static function displayCategory( $cat, $active = false )
     { ?>
-        <div class="3u">
+        <div class="3u navcat">
             <section>
                 <header>
-                    <h2 id="<?= $cat->slug ?>" class="<?= $cat->slug ?>"><a href="<?= get_category_link( $cat->cat_ID ) ?>"><?= $cat->name ?></a></h2>
+                    <h2 id="<?= $cat->slug ?>" class="<?= $cat->slug ?> <?= $active ? "active" : "" ?>">
+                      <a href="<?= get_category_link( $cat->cat_ID ) ?>"><?= $cat->name ?></a>
+                    </h2>
                 </header>
             </section>
         </div>
@@ -24,10 +26,11 @@ class CBMTheme {
 
     public static function categoriesNavigation()
     {
+        $active = self::getActiveCategories();
         $categories = get_categories( );
         foreach( $categories as $category ) {
             if ($category->slug != 'uncategorized') {
-                self::displayCategory($category);
+                self::displayCategory($category, in_array($category->slug, $active));
             }
         }
     }
@@ -299,6 +302,14 @@ class CBMTheme {
                 displaySinglePosts( $post) ;
             }
         }
+    }
+
+    private static function getActiveCategories() {
+        $active_categories = [];
+        foreach ( get_the_category() as $cat) {
+            $active_categories[] = $cat->slug;
+        }
+        return $active_categories;
     }
 
 }

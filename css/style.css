@@ -1090,6 +1090,13 @@
 		padding: 0px 0px 10px 0px;
 	}
 	
+	#themes header h2.active
+	{
+		border-bottom: 5px solid;
+		border-right: 5px solid;
+		padding: 0px 0px 6px 0px;
+	}
+	
 	
 	
 	#themes header h2 a:hover
@@ -1130,7 +1137,7 @@
 		text-transform: uppercase;
 	}
 	
-	.bankingactive
+	/*.bankingactive
 	{
 		color: #0690cf;
 		font-family: Auto2, sans-serif;
@@ -1139,7 +1146,7 @@
 		border-bottom-color: #0690cf;
 		border-right-color: #0690cf;
 		text-transform: uppercase;
-	}
+	}*/
 	
 	
 	.colorbanking
