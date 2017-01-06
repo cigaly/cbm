@@ -11,6 +11,8 @@ Version: 0.0.7
 
 include_once('includes/PostAccessRestriction.php');
 
+register_activation_hook( __FILE__, array( 'PostAccessRestriction', 'install_db' ) );
+
 add_action( 'init', 'PostAccessRestriction::start_session', 1 );
 add_action( 'wp_logout', 'PostAccessRestriction::end_session' );
 add_action( 'wp_login', 'PostAccessRestriction::end_session' );
