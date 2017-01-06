@@ -4,13 +4,13 @@
 			<div class="row">
 				<div class="3u">
 					<section>
-					<p>Partners: <strong>
+					<p class="strong">Partners: 
 					<a href="#" target="_blank">HOK</a> 
 					<a href="#" target="_blank">HGK</a> 
 					<a href="#" target="_blank">PIK</a> 
 					<a href="#" target="_blank">PAK</a> 
 					<a href="#" target="_blank">POK</a> 
-					</strong></p>
+					</p>
 					</section>
 				</div>
 				<div class="4u">

@@ -86,12 +86,14 @@ class CBMTheme {
     static private function displayLastPost( ) {
         global $post;
         ?>
-            <ul class="style2">
-                <p class="<?= $item['slug'] ?>"><?= the_category() ?></p>
+            <div class="style2">
+            	<?php foreach (get_the_category( $post->ID ) as $cat) { ?>
+            		<p class="<?= $cat->slug ?>"><?= $cat->name ?></p>
+            	<?php } ?>
                 <h3><?= the_title() ?></h3>
-                <p><?= the_excerpt() ?></p>
+                <?= the_excerpt() ?>
                 <p><span class="articledate"><?= the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
-            </ul>
+            </div>
             <?php
         // wp_reset_postdata();
     }
@@ -149,12 +151,12 @@ class CBMTheme {
         global $post;
         $slug = get_the_category( $post->ID )[0]->slug;
         ?>
-            <ul class="style1">
-                <strong><span class="articledate"><?= the_time(  'd.m.Y H:i' ) ?></span></strong>
+            <div class="style1">
+                <span class="articledate strong"><?= the_time(  'd.m.Y H:i' ) ?></span>
                 <h3 class="color<?= $slug ?>"><?= the_title() ?></h3>
-                <p class="color<?= $slug ?>"><?= the_excerpt() ?></p>
+                <div class="color<?= $slug ?>"><?= the_excerpt() ?></div>
                 <p><span class="articledate"><?= the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
-            </ul>
+            </div>
     <?php
     }
 
@@ -239,10 +241,13 @@ class CBMTheme {
                 echo get_the_post_thumbnail( $post );
             }
         ?>
-        <span class="<?= $slug ?>"><?= the_category() ?></span>
+        <?php /* ?><span class="<?= $slug ?>"><?= the_category() ?></span><?php */ ?>
+        <?php foreach ( get_the_category( $post->ID ) as $cat ) { ?>
+        	<span class="<?= $cat->slug ?>"><?= $cat->name ?></span>
+        <?php } ?>
         <h2><?= the_title() ?></h2>
       </header>
-      <p><?= the_content( '[...]', true ) ?></p>
+      <?= the_content( '[...]', true ) ?>
       <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
     </section>
     <?php
@@ -286,7 +291,7 @@ class CBMTheme {
             <?php if (has_excerpt()) { ?>
                 <h3 class="color<?= $slug ?>"><?= the_excerpt() ?></h3>
             <?php } ?>
-            <p><strong>Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum. </strong> </p>
+            <p class="strong">Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum.</p>
             <p><?= the_content() ?></p>
             <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_category_link( $cat->cat_ID ) ?>" class="button color<?= $slug ?>">More in <?= $cat->name ?></a></p>
         </section>
