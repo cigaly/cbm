@@ -84,17 +84,16 @@ class CBMTheme {
     }
 
     static private function displayLastPost( ) {
-        global $post;
-        ?>
-            <div class="style2">
-            	<?php foreach (get_the_category( $post->ID ) as $cat) { ?>
-            		<p class="<?= $cat->slug ?>"><?= $cat->name ?></p>
-            	<?php } ?>
-                <h3><?= the_title() ?></h3>
-                <?= the_excerpt() ?>
-                <p><span class="articledate"><?= the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
-            </div>
-            <?php
+        global $post; ?>
+        <div class="style2">
+        	<?php foreach (get_the_category( $post->ID ) as $cat) { ?>
+          		<p class="<?= $cat->slug ?>"><?= $cat->name ?></p>
+           	<?php } ?>
+            <h3><?= the_title() ?></h3>
+            <?= the_excerpt() ?>
+            <p><span class="articledate"><?= the_time( 'd.m.Y' ) ?></span> <a href="<?= get_permalink( $post ) ?>" class="button">Read More </a></p>
+        </div>
+        <?php
         // wp_reset_postdata();
     }
 
@@ -255,24 +254,24 @@ class CBMTheme {
         // wp_reset_postdata();
     }
 
-    public static function displayCategoryMiddlePost( $post )
-    {
-        $html = '<section><header>';
-        if (has_post_thumbnail( $post )) {
-            $html .= get_the_post_thumbnail( $post );
-        }
-        $cat = get_the_category( $post->ID )[0];
-        $slug = $cat->slug;
-        $content = self::getTheContent( $post, '[...]', true );
-        $html .=
-		        '<h2><span class="color' . $slug . '">' . $post->post_title . '</span></h2>' .
-            '</header>' .
-            '<p>' . $content . '</p>' .
-            '<p><span class="articledate">' . the_time( 'd.m.Y' ) . '</span> <a href="' . get_permalink( $post ) . '" class="button">Read More </a></p>' .
-            '<hr>' .
-            '</section>';
-        return $html;
-    }
+//     public static function displayCategoryMiddlePost( $post )
+//     {
+//         $html = '<section><header>';
+//         if (has_post_thumbnail( $post )) {
+//             $html .= get_the_post_thumbnail( $post );
+//         }
+//         $cat = get_the_category( $post->ID )[0];
+//         $slug = $cat->slug;
+//         $content = self::getTheContent( $post, '[...]', true );
+//         $html .=
+// 		        '<h2><span class="color' . $slug . '">' . $post->post_title . '</span></h2>' .
+//             '</header>' .
+//             '<p>' . $content . '</p>' .
+//             '<p><span class="articledate">' . the_time( 'd.m.Y' ) . '</span> <a href="' . get_permalink( $post ) . '" class="button">Read More </a></p>' .
+//             '<hr>' .
+//             '</section>';
+//         return $html;
+//     }
 
     public static function displaySinglePost( $post )
     {
@@ -292,7 +291,7 @@ class CBMTheme {
                 <h3 class="color<?= $slug ?>"><?= the_excerpt() ?></h3>
             <?php } ?>
             <p class="strong">Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum.</p>
-            <p><?= the_content() ?></p>
+            <?= the_content() ?>
             <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_category_link( $cat->cat_ID ) ?>" class="button color<?= $slug ?>">More in <?= $cat->name ?></a></p>
         </section>
         <?php

@@ -76,5 +76,13 @@ spl_autoload_register(function ($class_name) {
 				</ul>
 			</nav>
 		</div>
+		
+		<!-- Extra -->
+		<div id="themes" class="container">
+			<div class="row">
+				<?php get_template_part( 'navigation', get_post_format() ); ?>
+			</div>
+		</div>
+		<!-- /Extra -->
 	</div>
 <!-- Header -->
