@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
 <!-- Main -->
-<div id="page">
+<main id="page">
 	<!-- Main -->
 	<div id="main" class="container">
 		<div class="row">
@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<!-- Main -->
-</div>
+</main>
 <!-- /Main -->
 
 <?php get_footer(); ?>

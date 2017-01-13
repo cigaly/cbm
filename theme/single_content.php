@@ -1,18 +1,14 @@
-<?php
-	global $post;
-	if (have_posts()) {
-		while (have_posts()) {
-			the_post();
-        	$slug = get_the_category( $post->ID )[0]->slug;
-?>
-			<div class="9u"><?php CBMTheme::displaySinglePost( $post ); ?></div>
-
-			<div class="3u">
-				<section class="sidebar">
-					<blockquote class="color<?= $slug ?>">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum velit, ullamcorper sollicitudin</blockquote>
-				</section>
-			</div>
-<?php
-		}
-	}
-?>
+<div class="9u">
+  <?php
+  if (have_posts()) {
+    global $post;
+    the_post();
+    CBMTheme::displaySinglePost( $post );
+  } else {
+    /* TODO : What if no artcles? */
+  }
+  ?>
+</div>
+<div class="3u">
+	<?php get_template_part( 'rightside', get_post_format() ); ?>
+</div>
