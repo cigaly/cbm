@@ -3,3 +3,6 @@
 .project
 .settings/*
 /.settings/
+_cbm/
+_cbmw/
+guardian.html

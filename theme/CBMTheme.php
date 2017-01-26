@@ -113,8 +113,12 @@ class CBMTheme {
         return $text;
     }
 
-    public static function getLatestPosts( $n = 2 ) 
+    public static function getLatestPosts( $n = false ) 
     {
+      if (!$n) {
+        $n = get_option( CBMAdmin::NUM_LATEST_POSTS, CBMAdmin::DEF_LATEST_POSTS );
+      }
+            
         $args = array(
             'numberposts' => $n,
             // 'offset' => 0,
@@ -133,9 +137,12 @@ class CBMTheme {
         return get_posts( $args );
     }
 
-    private static function queryLatestPosts( $n = 2 ) 
+    private static function queryLatestPosts( $n = false ) 
     {
-        return new WP_Query( array(
+      if (!$n) {
+        $n = get_option( CBMAdmin::NUM_LATEST_POSTS, CBMAdmin::DEF_LATEST_POSTS );
+      }
+      return new WP_Query( array(
             'posts_per_page' => $n,
             'orderby' => 'post_date',
             'order' => 'DESC',
@@ -188,27 +195,37 @@ class CBMTheme {
         return get_posts( $args );
     }
 
-    private static function queryFeaturedPosts( $n = 3 )
+    private static function queryFeaturedPosts( $n = false )
     {
+      if (!$n) {
+        $n = get_option( CBMAdmin::NUM_FEATURED_POSTS, CBMAdmin::DEF_FEATURED_POSTS );
+      }
         return new WP_Query( array(
             'numberposts' => $n,
             'orderby' => 'meta_value',
             'order' => 'ASC',
-            'meta_key' => 'feature'
+            'meta_key' => get_option( CBMAdmin::FEATURE_META_KEY, CBMAdmin::DEF_FEATURE_META_KEY )
         ) );
     }
 
-    public static function displayFeaturedPosts( $n = 3 )
-    {
-        $query = self::queryFeaturedPosts();
-        if ( $query->have_posts() ) {
-            while ( $query->have_posts() ) {
-                $query->the_post();
-                CBMTheme::displayMiddlePost(  );
-            } // end while
-        } // end if
-        $query->reset_postdata();
+    public static function homeSelectFeaturedPosts( $wp_query ) {
+      if (is_home()) {
+        set_query_var('numberposts', get_option( CBMAdmin::NUM_FEATURED_POSTS, CBMAdmin::DEF_FEATURED_POSTS ));
+        set_query_var('orderby', 'meta_value');
+        set_query_var('order', 'ASC');
+        set_query_var('meta_key', get_option( CBMAdmin::FEATURE_META_KEY, CBMAdmin::DEF_FEATURE_META_KEY ));
+      }
     }
+    
+    public static function displayFeaturedPosts()
+    {
+      if ( have_posts() ) {
+          while ( have_posts() ) {
+            the_post();
+            CBMTheme::displayMiddlePost(  );
+          }
+        }
+      }
 
     public static function queryTaggedPosts( $tags, $n = 1 )
     {
@@ -309,11 +326,15 @@ class CBMTheme {
     }
 
     private static function getActiveCategories() {
+      if (is_category()) {
+        return array( get_query_var('category_name') );
+      } else {
         $active_categories = [];
         foreach ( get_the_category() as $cat) {
             $active_categories[] = $cat->slug;
         }
         return $active_categories;
+      }
     }
 
 }

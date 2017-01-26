@@ -1,8 +1,7 @@
 <?php
-// spl_autoload_register(function ($class_name) {
-//     include $class_name . '.php';
-// });
-// ?>
+$fileName = 'logo-screen-' . get_query_var('pagename') . '.png';
+$logoName = file_exists(TEMPLATEPATH . '/images/' . $fileName) ? $fileName : 'logo-screen.png';
+?>
 
 <!DOCTYPE HTML>
 <?php
@@ -51,7 +50,7 @@
 				
 			<!-- Logo -->
 			<div id="logo">
-				<h1><a href="index.php"><img src="<?= get_template_directory_uri() ?>/images/logo-screen.png"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
+				<h1><a href="index.php"><img src="<?= get_template_directory_uri() ?>/images/<?= $logoName ?>"  class="img-responsive" alt="CROATIAN BUSINESS MONITOR"></a></h1>
 			</div>
 
 			<div id="date"><?= CBMTheme::formatDate( time() ) ?></div>

@@ -6,7 +6,10 @@
 
   require_once 'CBMAdmin.php';
   // add the admin options page
-  add_action ( 'admin_menu', 'CBMAdmin::admin_add_page' );
+  add_action("admin_menu", "CBMAdmin::add_theme_menu_item");
 
   // add the admin settings and such
-  add_action ( 'admin_init', 'CBMAdmin::admin_init' );
+  add_action("admin_init", "CBMAdmin::display_theme_panel_fields");
+
+  add_action('pre_get_posts', 'CBMTheme::homeSelectFeaturedPosts' );
+  add_action( 'add_meta_boxes', 'CBMAdmin::add_meta_box' );
