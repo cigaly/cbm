@@ -13,3 +13,6 @@
 
   add_action('pre_get_posts', 'CBMTheme::homeSelectFeaturedPosts' );
   add_action( 'add_meta_boxes', 'CBMAdmin::add_meta_box' );
+
+  require_once 'CBMFeatured.php';
+  add_action ( 'admin_menu', 'CBMFeatured::init' );

@@ -195,24 +195,33 @@ class CBMTheme {
         return get_posts( $args );
     }
 
-    private static function queryFeaturedPosts( $n = false )
+    public static function queryFeaturedPosts( $n = false )
     {
       if (!$n) {
         $n = get_option( CBMAdmin::NUM_FEATURED_POSTS, CBMAdmin::DEF_FEATURED_POSTS );
       }
         return new WP_Query( array(
             'numberposts' => $n,
-            'orderby' => 'meta_value',
-            'order' => 'ASC',
+            'orderby' => array( 'meta_value' => 'ASC', 'post_date' => 'DESC' ),
             'meta_key' => get_option( CBMAdmin::FEATURE_META_KEY, CBMAdmin::DEF_FEATURE_META_KEY )
         ) );
     }
 
+    public static function queryNonFeaturedPosts( )
+    {
+      return new WP_Query( array(
+          'nopaging' => true,
+          'numberposts' => 999,
+          'orderby' => array( 'post_date' => 'DESC' ),
+          'meta_key' => get_option( CBMAdmin::FEATURE_META_KEY, CBMAdmin::DEF_FEATURE_META_KEY ),
+          'meta_compare' => 'NOT EXISTS'
+      ) );
+    }
+    
     public static function homeSelectFeaturedPosts( $wp_query ) {
       if (is_home()) {
         set_query_var('numberposts', get_option( CBMAdmin::NUM_FEATURED_POSTS, CBMAdmin::DEF_FEATURED_POSTS ));
-        set_query_var('orderby', 'meta_value');
-        set_query_var('order', 'ASC');
+        set_query_var('orderby', array( 'meta_value' => 'ASC', 'post_date' => 'DESC' ));
         set_query_var('meta_key', get_option( CBMAdmin::FEATURE_META_KEY, CBMAdmin::DEF_FEATURE_META_KEY ));
       }
     }
