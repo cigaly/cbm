@@ -317,7 +317,9 @@ class CBMTheme {
                 <h3 class="color<?= $slug ?>"><?= the_excerpt() ?></h3>
             <?php } ?>
             <p class="strong">Proin sed ipsum euismod, gravida metus vitae, ullamcorper ligula. Sed commodo sem sed ante venenatis interdum.</p>
+            <div class="article">
             <?= the_content() ?>
+            </div>
             <p><span class="articledate"><?php the_time( 'd.m.Y' ) ?></span> <a href="<?= get_category_link( $cat->cat_ID ) ?>" class="button color<?= $slug ?>">More in <?= $cat->name ?></a></p>
         </section>
         <?php

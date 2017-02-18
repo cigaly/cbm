@@ -1283,7 +1283,7 @@
 		line-height: 1.25;
 	}
 	
-	.articlefirstletter 
+	.articlefirstletter, div.article :first-child:first-letter 
 	{
 		font-size: 3.5em;
 		line-height: 30px;
