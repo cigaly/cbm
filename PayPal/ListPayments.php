@@ -17,7 +17,7 @@ class ListPayments {
   
 //   require 'CreatePayment.php';
   
-  public static function list_payments($start_index = 0, $count = 10, $apiContext = false) {
+  public static function list_payments($start_index, $count, $apiContext = false) {
     
     if (!$apiContext) {
       global $clientId, $clientSecret;

@@ -4,7 +4,7 @@
 
 <!-- Main -->
 <div id="page">
-	<?php get_template_part( 'navigation', get_post_format() ); ?>
+	<!-- <?php get_template_part( 'navigation', get_post_format() ); ?> -->
 
 	<!-- Main -->
 	<div id="main" class="container">

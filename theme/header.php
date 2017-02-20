@@ -61,11 +61,11 @@ $logoName = file_exists(TEMPLATEPATH . '/images/' . $fileName) ? $fileName : 'lo
 			<nav id="nav">
 				<ul>
 					<li class="active"><a href="<?= home_url() ?>">Home</a></li>
-					<li><a href="<?= home_url( 'about.php' ) ?>">About</a></li>
-					<li><a href="<?= home_url( 'contact.php' ) ?>">Contact</a></li>
+					<li><a href="<?= get_url_by_slug( 'about' ) ?>">About</a></li>
+					<li><a href="<?= get_url_by_slug( 'contact' ) ?>">Contact</a></li>
 					<?php /* ?><li><a href="<?= home_url( 'membership.php' ) ?>">Membership</a></li><?php */ ?>
 					<li><a href="<?= wp_registration_url() ?>">Membership</a></li>
-					<li><a href="<?= home_url( 'links.php' ) ?>">Useful links</a></li>
+					<li><a href="<?= get_url_by_slug( 'links' ) ?>">Useful links</a></li>
 					<li style="float: right;">
 						<?php if (is_user_logged_in()) { ?>
 							<a href="<?= wp_logout_url( home_url() ) ?>">Logout</a>

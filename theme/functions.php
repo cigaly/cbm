@@ -1,4 +1,11 @@
 <?php
+
+function get_url_by_slug($slug) {
+  $page_url_id = get_page_by_path( $slug );
+  $page_url_link = get_permalink($page_url_id);
+  return $page_url_link;
+}
+
   remove_action ( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
 
   require_once 'CBMTheme.php';
