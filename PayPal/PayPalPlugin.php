@@ -3,6 +3,7 @@
 require 'PayPal-PHP-SDK/autoload.php';
 require_once 'functions.php';
 require_once 'ListPayments.php';
+require_once 'Billing.php';
 
 class PayPalPlugin {
   
@@ -10,7 +11,8 @@ class PayPalPlugin {
     add_menu_page ( "PayPal XXX", "PayPal XXX", "manage_options", "paypal-xxx" );
     //add_menu_page ( "PayPal Transactions", "PayPal Transactions", "manage_options", "paypal-transactions", "PayPalPlugin::transactions_page", null, 99 );
     add_submenu_page( "paypal-xxx", "PayPal Transactions", "PayPal Transactions", "manage_options", "paypal-transactions", "PayPalPlugin::transactions_page", null, 99 );
-  }
+    add_submenu_page( "paypal-xxx", "PayPal Billing", "PayPal Billing", "manage_options", "paypal-billing", "Billing::billing_page", null, 99 );
+    }
   
   private static function getCreditCardInfo($fundingInstruments = Array()) {
     foreach ($fundingInstruments as $fi) {
