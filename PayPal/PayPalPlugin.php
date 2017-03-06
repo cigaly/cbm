@@ -8,11 +8,12 @@ require_once 'Billing.php';
 class PayPalPlugin {
   
   public static function add_menu_item() {
-    add_menu_page ( "PayPal XXX", "PayPal XXX", "manage_options", "paypal-xxx" );
-    //add_menu_page ( "PayPal Transactions", "PayPal Transactions", "manage_options", "paypal-transactions", "PayPalPlugin::transactions_page", null, 99 );
-    add_submenu_page( "paypal-xxx", "PayPal Transactions", "PayPal Transactions", "manage_options", "paypal-transactions", "PayPalPlugin::transactions_page", null, 99 );
-    add_submenu_page( "paypal-xxx", "PayPal Billing", "PayPal Billing", "manage_options", "paypal-billing", "Billing::billing_page", null, 99 );
-    }
+    add_menu_page ( 'PayPal XXX', 'PayPal XXX', 'manage_options', 'paypal-xxx' );
+    //add_menu_page ( 'PayPal Transactions', 'PayPal Transactions', 'manage_options', 'paypal-transactions', 'PayPalPlugin::transactions_page', null, 99 );
+    add_submenu_page( 'paypal-xxx', 'PayPal Transactions', 'PayPal Transactions', 'manage_options', 'paypal-transactions', 'PayPalPlugin::transactions_page', null, 99 );
+    add_submenu_page( 'paypal-xxx', 'PayPal Billing', 'PayPal Billing', 'manage_options', 'paypal-billing', 'Billing::billing_page', null, 99 );
+    add_submenu_page( 'paypal-xxx', 'PayPal Billing Agreement', 'PayPal Billing Agreement', 'manage_options', 'paypal-billing-agreement', 'Billing::agreement_page', null, 99 );
+  }
   
   private static function getCreditCardInfo($fundingInstruments = Array()) {
     foreach ($fundingInstruments as $fi) {

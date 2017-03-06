@@ -2,6 +2,7 @@
 
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+use PayPal\Api\Agreement;
 
 // Suppress DateTime warnings, if not set already
 date_default_timezone_set(@date_default_timezone_get());
@@ -89,4 +90,12 @@ function getApiContext($clientId, $clientSecret)
   // $apiContext->addRequestHeader('PayPal-Partner-Attribution-Id', '123123123');
 
   return $apiContext;
+}
+
+
+function execute_agreement($token) {
+  global $clientId, $clientSecret;
+  $agreement = new Agreement();
+  $output = $agreement->execute($token, getApiContext($clientId, $clientSecret));
+  echo "Output agreement: " . $output . "<br />";
 }
