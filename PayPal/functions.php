@@ -75,7 +75,8 @@ function getApiContext($clientId, $clientSecret)
       array(
           'mode' => 'sandbox',
           'log.LogEnabled' => true,
-          'log.FileName' => '../PayPal.log',
+          //'log.FileName' => '../PayPal.log',
+          'log.FileName' => '/tmp/PayPal.log',
           'log.LogLevel' => 'DEBUG', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
           'cache.enabled' => true,
           // 'http.CURLOPT_CONNECTTIMEOUT' => 30
@@ -95,7 +96,14 @@ function getApiContext($clientId, $clientSecret)
 
 function execute_agreement($token) {
   global $clientId, $clientSecret;
+  error_log("execute_agreement($token)");
   $agreement = new Agreement();
+  error_log('Agreement: ' .$agreement);
   $output = $agreement->execute($token, getApiContext($clientId, $clientSecret));
+  error_log('Output: ' . $output);
   echo "Output agreement: " . $output . "<br />";
+}
+
+function billing_agreement_page() {
+  Billing::agreement_page();
 }

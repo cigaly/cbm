@@ -112,6 +112,7 @@ class Billing {
     <th colspan="2"></th>
     </tr>
     <?php
+    try {
     foreach (array('CREATED', 'ACTIVE', 'INACTIVE'/*, 'DELETED'*/) as $status) {
       $plans = self::getBillingPlans($status);
       if ($plans->getPlans()) {
@@ -142,6 +143,11 @@ class Billing {
         }
       }
 
+    }
+    } catch (Exception $ex) {
+      echo "Exception: " . $ex->getMessage() . "<br />";
+      echo "Trace: <pre>" . $ex->getTraceAsString() . "</pre><br />";
+      var_dump(json_decode($ex->getData()));
     }
 
     ?>
@@ -333,8 +339,7 @@ class Billing {
       <?php 
     }
     ?>
-    <form method="POST" action="">
-    	<input type="hidden" name="" value="P-2DD76456623856940URXB4IQ" />
+    <form action="<?php the_permalink(); ?>" method="post">
     	<h2>PayPal Billing Agreement</h2>
     	<table>
     		<caption>Billing agreement</caption>
@@ -356,7 +361,7 @@ class Billing {
     			</tr>
     			<tr>
     				<th>Name</th>
-    				<td><input type="text" name="name" maxlength="128" size="128" /></td>
+    				<td><input type="text" name="aname" maxlength="128" size="128" /></td>
     			</tr>
     			<tr>
     				<th>Description</th>
@@ -430,7 +435,7 @@ class Billing {
     
     $agreement = new Agreement();
     $agreement->setPlan($plan)
-              ->setName($params['name'])
+              ->setName($params['aname'])
               ->setDescription($params['description'])
               ->setStartDate($params['start_date'])
               ->setPayer($payer);
@@ -662,8 +667,8 @@ class Billing {
     
     $merchantPreferences = new MerchantPreferences();
     
-    $returnUrl = /* key_exists('return_url', $params) ? $params['return_url'] :*/ self::successUrl();
-    $cancelUrl = /* key_exists('cancel_url', $params) ? $params['cancel_url'] :*/ self::cancelUrl();
+    $returnUrl = key_exists('return_url', $params) ? $params['return_url'] : self::successUrl();
+    $cancelUrl = key_exists('cancel_url', $params) ? $params['cancel_url'] : self::cancelUrl();
     
     $merchantPreferences->setReturnUrl($returnUrl)
                         ->setCancelUrl($cancelUrl)
