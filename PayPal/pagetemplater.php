@@ -74,7 +74,8 @@ class PageTemplater {
 		// Add your templates to this array.
 		$this->templates = array(
 			'execute_agreement.php' => 'Execute Billing Agreement',
-// 		    'paypal.php' => 'PayPal Payment',
+		    'paypal.php' => 'PayPal Payment',
+		    'webhook.php' => 'Webhook Test'
 		);
 			
 	} 

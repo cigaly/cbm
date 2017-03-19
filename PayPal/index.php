@@ -29,6 +29,6 @@ add_action("admin_menu", "PayPalPlugin::add_menu_item");
 // add_action( 'wp_login', 'PostAccessRestriction::end_session' );
 // add_filter( 'the_content' , 'PostAccessRestriction::page_restrict' , 50 );
 
-// include_once 'pagetemplater.php';
+include_once 'pagetemplater.php';
 
-// $pt = PageTemplater::get_instance();
+$pt = PageTemplater::get_instance();
