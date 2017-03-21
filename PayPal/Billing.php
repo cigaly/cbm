@@ -20,7 +20,7 @@ use PayPal\Rest\ApiContext;
 
 class Billing {
   
-  const CURRENCIES = array(
+  static $CURRENCIES = array(
       'Australian Dollar' => 'AUD',
       'Brazilian Real' => 'BRL',
       'Canadian Dollar' => 'CAD',
@@ -52,7 +52,7 @@ class Billing {
   private static function currencySelector($name, $default = self::DEFAULT_CURRENCY) {
     ?>
     <select name="<?=$name?>">
-      <?php foreach (self::CURRENCIES as $n => $c) { ?>
+      <?php foreach (self::$CURRENCIES as $n => $c) { ?>
         <option value="<?=$c?>" <?php if ($c == self::DEFAULT_CURRENCY) { ?>selected="selected"<?php } ?>><?=$n?></option>
       <?php } ?>
     </select>
@@ -60,8 +60,7 @@ class Billing {
   }
   
   private static function baseUrl() {
-    //return 'http://dama.igaly.org/wordpress';
-    return 'http://192.168.56.98/wordpress';
+    return get_site_url();
   }
 
   private static function getApiContext() {
@@ -336,7 +335,8 @@ class Billing {
       ?>
       <b>Billing agreement</b>: <?=$output->toJSON()?><br />
       <a href="<?=$approvalLink?>">Approve</a><br />
-      <?php 
+      <?php
+      return;
     }
     ?>
     <form action="<?php the_permalink(); ?>" method="post">
@@ -654,12 +654,12 @@ class Billing {
   
   
   private static function successUrl() {
-    return self::baseUrl() . "/ExecuteAgreement.php?success=true";
+    return get_url_by_slug( 'execute-agreement' ) . '?success=true';
   }
 
 
   private static function cancelUrl() {
-    return self::baseUrl() . "/ExecuteAgreement.php?success=false";
+    return get_url_by_slug( 'execute-agreement' ) . '?success=false';
   }
   
   
